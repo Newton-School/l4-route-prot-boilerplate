@@ -1,11 +1,11 @@
 const User = require('../models/User');
+const message = require('../models/message');
 const Message = require('../models/message');
 
 // Get all messages
 const getAllMessages = async (req, res) => {
   try {
-    const messages = await Message.find();
-    res.status(200).json({ messages });
+    //write a code here to get all the messages
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to get messages' });
@@ -15,24 +15,7 @@ const getAllMessages = async (req, res) => {
 //new Message
 const newmessages = async (req, res) => {
   try {
-    const { senderId, receiverId, content } = req.body;
-
-    const sender = await User.findById(senderId);
-    const receiver = await User.findById(receiverId);
-
-    if (!sender || !receiver) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    const newMessage = new Message({
-      sender: sender._id,
-      receiver: receiver._id,
-      content,
-    });
-
-    await newMessage.save();
-
-    res.status(201).json({ message: 'Message sent successfully' });
+    //write a code here for storing a new message here
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to send message' });
@@ -42,22 +25,7 @@ const newmessages = async (req, res) => {
 //Update a message
 const updateMessage = async (req, res) => {
   try {
-    const messageId = req.params.id;
-    console.log(messageId);
-
-    const { content } = req.body;
-
-    const updatedMessage = await Message.findByIdAndUpdate(
-      messageId,
-      { content },
-      { new: true }
-    );
-
-    if (!updatedMessage) {
-      return res.status(404).json({ error: 'Message not found' });
-    }
-
-    res.json({ message: 'Message updated successfully', updatedMessage });
+    // write a code here for updating a message of a content
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to update message' });
@@ -67,15 +35,7 @@ const updateMessage = async (req, res) => {
 // Delete a message
 const deleteMessage = async (req, res) => {
   try {
-    const messageId = req.params.id;
-
-    const deletedMessage = await Message.findByIdAndDelete(messageId);
-
-    if (!deletedMessage) {
-      return res.status(404).json({ error: 'Message not found' });
-    }
-
-    res.json({ message: 'Message deleted successfully' });
+    //write a code here for deleting a message document based on particular id
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to delete message' });
